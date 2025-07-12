@@ -2,41 +2,6 @@
 
 #include "parser.h"
 
-// int detect_error1(char *inpute)
-// {
-//     int i;
-//     int a;
-//     int b;
-
-//     a = 0;
-//     b = 0;
-//     i = 0;
-//     while (inpute[i])
-//     {
-//         if (inpute[i] == 34)
-//             a++;
-//         if (inpute[i] == 39)
-//             b++;
-//         if (inpute[i] == 92)
-//             return (1);
-//         if (inpute[i] == 59)
-//             return (1);
-//         i++;
-//     }
-//     if (a % 2 != 0 || b % 2 != 0)
-//         return (1);
-//     return (0);
-// }
-
-// int detect_error(char *inpute)
-// {
-//     if (detect_error1(inpute) == 1)
-//     {
-//         printf("%s : commant not fount\n", inpute);
-//         return (1);
-//     }
-//     return (0);
-// }
 
 int ft_strlen(char *str)
 {
@@ -61,7 +26,7 @@ void get_string_with(char *inpute, char *str, int   *i, int    *j)
             str[(*j)++] = inpute[(*i)++];
     }
     while (inpute[*i] != 32 && inpute[*i] != '\t' && inpute[*i] != '|' && inpute[*i] != '<' 
-    && inpute[*i] != '>' && inpute[*i])
+    && inpute[*i] != '>' && inpute[*i] != '$' && inpute[*i])
         str[(*j)++] = inpute[(*i)++];
 }
 
@@ -117,18 +82,34 @@ void get_string_with_operation(char *inpute, char *str, int *i)
     }
 }
 
+void    get_string_with_dollar(char *inpute, char *str, int *i)
+{
+    int j;
+
+    j = 0;
+    while (inpute[*i] == '$' && inpute[*i])
+        str[j++] = inpute[(*i)++];
+    while (inpute[*i] != 32 && inpute[*i] != '\t' && inpute[*i] != '>' && inpute[*i] != '<' 
+        && inpute[*i] != '|' && inpute[*i] != '$' && inpute[*i] && inpute[*i] != 34 && inpute[*i] != 39)
+        str[j++] = inpute[(*i)++];
+    str[j] = 0;
+}
+
 void get_string(char *inpute, char *str, int *i)
 {
     int j;
 
     j = 0;
-    if (inpute[*i] == '|' || inpute[*i] == '<' || inpute[*i] == '>')
+    if (inpute[*i] == '|' || inpute[*i] == '<' || inpute[*i] == '>' || inpute[*i] == '$')
     {
-        get_string_with_operation(inpute, str, i);
+        if (inpute[*i] == '|' || inpute[*i] == '<' || inpute[*i] == '>')
+            get_string_with_operation(inpute, str, i);
+        if (inpute[*i] == '$')
+            get_string_with_dollar(inpute, str, i);
         return ;
     }
     while (inpute[*i] != 32 && inpute[*i] != '\t' && inpute[*i] != '|' && inpute[*i] != '<' 
-    && inpute[*i] != '>' && inpute[*i])
+    && inpute[*i] != '>' && inpute[*i] && inpute[*i] != '$')
         str[j++] = inpute[(*i)++];
     str[j] = 0;
 }
@@ -213,20 +194,6 @@ int ft_strcmp(char *inpute, char *str)
     return (1);
 }
 
-int is_word(char *str)
-{
-    int i;
-
-    i = 0;
-    while (str[i])
-    {
-        if (str[i] == '|' || str[i] == '>' || str[i] == '<' || str[i] == 34 || str[i] == 39)
-            return (0);
-        i++;
-    }
-    return (1);
-}
-
 void    define_type(t_token *token)
 {
     int i;
@@ -238,9 +205,11 @@ void    define_type(t_token *token)
         token->type = DOUBLE_QUOTES;
     if (token->inpute[0] == 39 && token->inpute[j - 1] == 39)
         token->type = SIGLE_QUOTES;
+    if (token->inpute[0] == '$')
+        token->type = DOLLAR;
     // else
     //     token->type = T_WORD;
-    if (token->inpute[0] != '>' && token->inpute[0] != '<' && token->inpute[0] != '|')
+    if (token->inpute[0] != '>' && token->inpute[0] != '<' && token->inpute[0] != '|' && token->inpute[0] != '$')
         if ((token->inpute[0] != 34 || token->inpute[j - 1] != 34) 
         && (token->inpute[0] != 39 || token->inpute[j - 1] != 39))
             token->type = T_WORD;

@@ -7,15 +7,15 @@
 #include <stdlib.h>
 typedef enum e_type
 {
-    T_WORD = 0,
-    SIGLE_QUOTES = 1,
-    DOUBLE_QUOTES = 2,
-    RIGHT_FLESH = 3,
-    LEFT_FLESH = 4,
-    PIPE = 5,
-    DOUBLE_LEFT_FLESH = 6,
-    DOUBLE_RIGHT_FLESH = 7,
-    DOLLAR = 8
+    T_WORD,
+    SIGLE_QUOTES,
+    DOUBLE_QUOTES,
+    RIGHT_FLESH,
+    LEFT_FLESH,
+    PIPE,
+    DOUBLE_LEFT_FLESH,
+    DOUBLE_RIGHT_FLESH,
+    DOLLAR
 }t_type;
 
 typedef struct token
@@ -26,12 +26,24 @@ typedef struct token
     t_type type;
 }t_token;
 
+typedef struct type
+{
+    output_redir,
+    input_redir,
+    heredoc,
+    append_output_redir
+}t_redir_type;
+
+typedef struct 
+{
+    char *file;
+    t_redir_type type;
+}t_file;
+
 typedef struct list
 {
-    char *command;
-    char *argument;
-    char *inpute_file;
-    char *outpute_file;
+    char *arg;
+    t_file *redir;
     struct list *pipe_next;
 }t_list;
 

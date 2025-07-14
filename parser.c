@@ -37,55 +37,55 @@
 //     return (list);
 // }
 
-void    get_argument(t_token *token, char *str)
-{
-    int i;
-    int j;
+// void    get_argument(t_token *token, char *str)
+// {
+//     int i;
+//     int j;
 
-    i = 0;
-    while (token && token->type != DOUBLE_LEFT_FLESH && token->type != DOUBLE_RIGHT_FLESH && 
-    token->type != RIGHT_FLESH && token->type != LEFT_FLESH && token->type != PIPE)
-    {
-        j = 0;
-        while (token->inpute[j])
-            str[i++] = token->inpute[j++];
-        str[i++] = 32;
-        token = token->next;
-    }
-    str[j] = 0;
-}
+//     i = 0;
+//     while (token && token->type != DOUBLE_LEFT_FLESH && token->type != DOUBLE_RIGHT_FLESH && 
+//     token->type != RIGHT_FLESH && token->type != LEFT_FLESH && token->type != PIPE)
+//     {
+//         j = 0;
+//         while (token->inpute[j])
+//             str[i++] = token->inpute[j++];
+//         str[i++] = 32;
+//         token = token->next;
+//     }
+//     str[j] = 0;
+// }
 
-void get_node(t_list *list, t_token *token)
-{
-    char *str;
+// // void get_node(t_list *list, t_token *token)
+// // {
+// //     char *str;
 
-    str = malloc(sizeof)
-    while ()
-}
+// //     str = malloc(sizeof)
+// //     while ()
+// // }
 
-t_list *split_token(t_token *token)
-{
-    t_list *list;
+// t_list *split_token(t_token *token)
+// {
+//     t_list *list;
 
-    while (token)
-    {
-        list = malloc(sizeof(t_list));
-        if (!list)
-            exit (0);
-        get_node(list, token);
-        while (token->type != PIPE && token)
-            token->next;
-        if (token->type == PIPE)
-            token = token->next;
-    }
-    return (list);
-}
+//     while (token)
+//     {
+//         list = malloc(sizeof(t_list));
+//         if (!list)
+//             exit (0);
+//         get_node(list, token);
+//         while (token->type != PIPE && token)
+//             token->next;
+//         if (token->type == PIPE)
+//             token = token->next;
+//     }
+//     return (list);
+// }
 
 int main()
 {
     char *inpute;
     t_token *token;
-    t_list  *list;
+    // t_list  *list;
     int n;
 
     while (1)
@@ -95,7 +95,7 @@ int main()
         detect_error(token);
         define_types(token);
         detect_error2(token);
-        list = splite_tokens(token);
+        // list = splite_tokens(token);
         // list = splite_tokens(token);
         t_token *tmp = token;
         while (tmp)

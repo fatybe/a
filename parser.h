@@ -26,26 +26,26 @@ typedef struct token
     t_type type;
 }t_token;
 
-typedef struct type
-{
-    output_redir,
-    input_redir,
-    heredoc,
-    append_output_redir
-}t_redir_type;
+// typedef struct type
+// {
+//     output_redir,
+//     input_redir,
+//     heredoc,
+//     append_output_redir
+// }t_redir_type;
 
-typedef struct 
-{
-    char *file;
-    t_redir_type type;
-}t_file;
+// typedef struct 
+// {
+//     char *file;
+//     t_redir_type type;
+// }t_file;
 
-typedef struct list
-{
-    char *arg;
-    t_file *redir;
-    struct list *pipe_next;
-}t_list;
+// typedef struct list
+// {
+//     char *arg;
+//     t_file *redir;
+//     struct list *pipe_next;
+// }t_list;
 
 void    detect_error(t_token    *token);
 void detect_error2(t_token  *token);
